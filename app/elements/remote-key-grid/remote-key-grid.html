@@ -1,0 +1,56 @@
+<dom-module id="remote-key-grid">
+  <style>
+
+  :host {
+    position: relative;
+  }
+
+  #keys {
+    width: 100%;
+    height: 100%;
+    @apply(--layout-horizontal);
+  }
+
+  .key {
+    @apply(--layout-flex);
+  }
+
+  .keyGroup {
+    @apply(--layout-flex);
+    @apply(--layout-vertical);
+  }
+
+  </style>
+  <template>
+    <div id="keys">
+      <template is="dom-repeat" items="{{keys}}">
+        <div class="keyGroup">
+          <template is="dom-repeat" items="{{item}}">
+            <remote-key class="key" label={{item}} on-tap="keyTap"></remote-key>
+          </template>
+        </div>
+      </template>
+     </div>
+   </template>
+
+  <script>
+    (function() {
+      Polymer({
+        is: 'remote-key-grid',
+
+        ready : function(){
+          this.keys =  [
+              ['1', '4', '7', ''],
+              ['2', '5', '8', '0'],
+              ['3', '6', '9', '']
+            ];
+        },
+
+        keyTap : function(e){
+          this.fire("keytap", e.model.__data__.item);
+        }
+      });
+      })();
+  </script>
+
+</dom-module>

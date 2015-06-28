@@ -1,0 +1,41 @@
+<dom-module id="command-mapping">
+  <script>
+     (function() {
+       Polymer({
+         ready: function() {
+           this.functionMapping =
+           {
+               "Insignia" :
+                   {
+                       "_TYPE"     : "NEC",
+                       "POWER"     : "0x61A0F00F",
+                       "1"         : "0x61A000FF",
+                       "2"         : "0x61A0807F",
+                       "3"         : "0x61A040BF",
+                       "4"         : "0x61A040BF",
+                       "5"         : "0x61A020DF",
+                       "6"         : "0x61A0A05F",
+                       "7"         : "0x61A0609F",
+                       "8"         : "0x61A0E01F",
+                       "9"         : "0x61A010EF",
+                       "0"         : "0x61A0906F",
+                       "VOLUP"     : "0x61A030CF",
+                       "VOLDOWN"   : "0x61A0B04F",
+                       "CHUP"      : "0x61A050AF",
+                       "CHDOWN"    : "0x61A0D02F",
+                       "INPUT"     : "0x61A0B847"
+                   }
+           }
+         },
+
+         getHexCode : function(deviceName, func){
+           return this.functionMapping[deviceName][func];
+         },
+
+         getProtocol : function(deviceName){
+           return this.functionMapping[deviceName]["_TYPE"];
+         }
+       });
+     })();
+   </script>
+</dom-module>

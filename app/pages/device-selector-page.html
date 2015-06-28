@@ -1,0 +1,117 @@
+<!--
+  Page which displays list of spark cores to connect to.
+-->
+<dom-module id="device-selector-page">
+
+  <style>
+    h1 {
+      padding: 16px;
+      margin: 0px;
+    }
+
+    paper-material {
+      border-radius: 2px;
+      height: 100%;
+      padding: 16px;
+      margin: 16px;
+      background: white;
+    }
+
+    .paper-header {
+        font-size: 24px;
+        line-height: 60px;
+        padding: 0 10px;
+        color: white;
+        transition: height 0.2s;
+        background-color: var(--default-primary-color);
+    }
+
+    #logoutContainer{
+      bottom: 16px;
+      left: 16px;
+      position: absolute;
+    }
+
+    #listContainer{
+      visibility: hidden;
+    }
+   </style>
+
+  <template>
+    <paper-header-panel mode="standard">
+      <div class="paper-header">Devices
+      </div>
+
+        <div>
+          <paper-material id="listContainer" elevation="1">
+            <device-list id="list"
+              access-token="{{accessToken}}"
+              on-devices-loaded="handleDeviceLoad"
+            ></device-list>
+          </paper-material>
+          <div id="logoutContainer">
+            <paper-button id="logoutButton" raised on-tap="logoutTap">logout</paper-button>
+          </div>
+        </div>
+      </paper-header-panel>
+  </template>
+
+  <script>
+    (function() {
+      Polymer({
+        is: 'device-selector-page',
+
+        behaviors: [
+          Polymer.NeonAnimatableBehavior,
+          Polymer.NeonAnimationRunnerBehavior
+        ],
+
+        properties : {
+          currentRoute : {
+            type: String,
+            observer : 'routeChangeHandler'
+          },
+          accessToken : {
+            type : String
+          },
+
+          animationConfig : {
+            type: Object,
+            value: function() {
+              return {
+                'entry': [{
+                    name: 'scale-up-animation',
+                    node: this.$.logoutContainer
+                  }],
+                'devicesLoaded': [{
+                    name: 'slide-down-animation',
+                    node: this.$.listContainer
+                }]
+              };
+            }
+          }
+        },
+
+        handleDeviceLoad : function(e){
+          this.$.listContainer.style.visibility = 'visible';
+          this.playAnimation('devicesLoaded');
+        },
+
+        logoutTap : function(e){
+          app.clearData();
+          page('/login');
+        },
+
+        routeChangeHandler : function(){
+          if(this.currentRoute == 'devices'){
+            this.playAnimation('entry');
+            this.$.list.refreshDevices();
+          } else {
+            this.$.listContainer.style.visibility = 'hidden';
+          }
+        }
+      });
+      })();
+  </script>
+
+</dom-module>

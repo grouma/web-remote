@@ -1,0 +1,70 @@
+<dom-module id="remote-key">
+  <style>
+
+  :host {
+    display: block;
+    position: relative;
+  }
+
+  #keyLabel {
+    pointer-events: none;
+  }
+
+  .rippleContainer,
+  #keyLabel{
+    @apply(--layout-horizontal);
+    @apply(--layout-center-justified);
+    @apply(--layout-center);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  </style>
+  <template>
+    <div class="rippleContainer">
+      <paper-ripple id="ripple" class="ripple" style="pointer-events: none;">
+      </paper-ripple>
+    </div>
+    <div id="keyLabel">{{label}}</div>
+   </template>
+
+  <script>
+    (function() {
+      Polymer({
+        is: 'remote-key',
+
+        properties : {
+          label : {
+            type: String,
+            observer : 'setVisibility'
+          }
+        },
+
+        setVisibility : function(){
+          if(this.label == ""){
+            this.$.ripple.toggleClass("hidden", true);
+          }else{
+            this.$.ripple.toggleClass("hidden", false);
+          }
+        },
+
+        downAction: function(e) {
+          this.$.ripple.downAction({x: e.x, y: e.y});
+        },
+
+        upAction: function(e) {
+          this.$.ripple.upAction();
+        }
+
+        });
+      })();
+  </script>
+
+</dom-module>
