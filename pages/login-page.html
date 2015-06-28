@@ -1,0 +1,35 @@
+<dom-module id="login-page"><style>
+    paper-material {
+      border-radius: 2px;
+      height: 100%;
+      padding: 16px;
+      margin: 16px auto;
+      background: white;
+    }
+
+    /* Remove z index to fix modal bug */
+    paper-header-panel {
+      z-index: inherit;
+    }
+
+    .paper-header {
+        height: 120px;
+        font-size: 24px;
+        line-height: 60px;
+        padding: 0 10px;
+        color: white;
+        transition: height 0.2s;
+        background-color: var(--default-primary-color);
+    }
+
+    .cover {
+      margin: 60px 15px;
+    }
+  </style><template><paper-header-panel mode="cover"><div class="paper-header tall">Web Remote</div><div class="cover"><paper-material elevation="1"><login-helper transition-page="/"></login-helper></paper-material></div></paper-header-panel></template><script>
+    (function() {
+      Polymer({
+        is: 'login-page',
+
+        });
+      })();
+  </script></dom-module>

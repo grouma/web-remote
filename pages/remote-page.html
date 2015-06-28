@@ -1,0 +1,157 @@
+<dom-module id="remote-page"><style>
+    :host {
+      font-size: 2em;
+    }
+
+    paper-material {
+      margin: 16px;
+    }
+
+    paper-fab {
+      background: var(--default-primary-color);
+    }
+
+    #specialButtonsContainer {
+      height: 40%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      position: absolute;
+      display: block;
+      @apply(--layout-center-justified);
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+    }
+
+    #powerInputContainer {
+      display: inline-block;
+      padding: 16px;
+    }
+
+    #inputButton {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #keyGridContainer {
+      top: 40%;
+      width: 100%;
+      height: 60%;
+      position: absolute;
+      bottom: 0;
+      background: var(--default-primary-color);
+      color: white;
+    }
+
+    button-rocker{
+      padding: 16px;
+    }
+  </style><template><div id="specialButtonsContainer"><button-rocker id="channelRocker" up-icon="hardware:keyboard-arrow-up" down-icon="hardware:keyboard-arrow-down" on-keytap="handleRockerTap"></button-rocker><div id="powerInputContainer"><paper-fab id="powerButton" icon="power-settings-new" on-tap="powerTap"></paper-fab><paper-fab id="inputButton" icon="settings-input-hdmi" mini="" on-tap="inputTap"></paper-fab></div><button-rocker id="volumeRocker" up-icon="av:volume-up" down-icon="av:volume-down" on-keytap="handleRockerTap"></button-rocker></div><div id="keyGridContainer"><remote-key-grid on-keytap="handleKeyTap"></remote-key-grid></div><spark-controller id="spark_controller" on-response="handleResponse" on-error="handleError"></spark-controller><command-mapping id="command_mapping"></command-mapping></template><script>
+    (function() {
+      Polymer({
+        is: 'remote-page',
+
+        behaviors: [
+          Polymer.NeonAnimatableBehavior,
+          Polymer.NeonAnimationRunnerBehavior
+        ],
+
+        properties : {
+          accessToken : {
+              type: String
+          },
+
+          device : {
+            type: Object
+          },
+
+          deviceName : {
+            type: String
+          },
+
+          currentRoute : {
+            type: String,
+            observer : 'routeChangeHandler'
+          },
+
+          animationConfig : {
+            type: Object,
+            value: function() {
+              return {
+                'entry': [{
+                    name: 'slide-down-animation',
+                    node: this.$.specialButtonsContainer
+                  },{
+                    name: 'scale-up-animation',
+                    node: this.$.keyGridContainer
+                  }]
+              };
+            }
+          }
+        },
+
+        executeFunction : function(args){
+          var spark_controller = this.$.spark_controller;
+          spark_controller.executeFunction(this.accessToken, this.device.id, args);
+        },
+
+        getArgs : function(key){
+          var command_mapping = this.$.command_mapping;
+          return command_mapping.getProtocol(this.deviceName)
+           + command_mapping.getHexCode(this.deviceName, key);
+        },
+
+        handleRockerTap : function(e){
+          var args;
+          if(e.srcElement.id == "channelRocker"){
+            if(e.detail == "up"){
+              args = this.getArgs("CHUP");
+            }else{
+              args = this.getArgs("CHDOWN");
+            }
+          }else{
+            if(e.detail == "up"){
+              args = this.getArgs("VOLUP");
+            }else{
+              args = this.getArgs("VOLDOWN");
+            }
+          }
+          this.executeFunction(args);
+        },
+
+        handleKeyTap : function(e){
+          var key = e.detail;
+          if(key != ""){
+            var args = this.getArgs(key);
+            this.executeFunction(args);
+          }
+        },
+
+        powerTap : function(e){
+          var args = this.getArgs("POWER");
+          this.executeFunction(args);
+        },
+
+        inputTap : function(e){
+          var args = this.getArgs("INPUT");
+          this.executeFunction(args);
+        },
+
+        handleResponse : function(e){
+
+        },
+
+        handleError : function(e){
+
+        },
+
+        routeChangeHandler : function(){
+          if(this.currentRoute == 'remote'){
+            this.playAnimation('entry');
+          }
+        }
+
+        });
+      })();
+  </script></dom-module>
