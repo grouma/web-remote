@@ -1,0 +1,1 @@
+!function(e){"use strict";var n=e.querySelector("#app");n.displayInstalledToast=function(){e.querySelector("#caching-complete").show()},n.addEventListener("dom-change",function(){}),n.clearData=function(){n.token=null,n.device=null},window.addEventListener("WebComponentsReady",function(){})}(document);
