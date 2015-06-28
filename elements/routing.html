@@ -1,9 +1,13 @@
-<script src="https://cdn.rawgit.com/visionmedia/page.js/master/page.js"></script>
+<script src="../../bower_components/page/page.js"></script>
 
 <script>
   window.addEventListener('WebComponentsReady', function() {
 
     page('/', function () {
+      page('/devices');
+    });
+
+    page('/devices', function() {
       if(app.token == null){
         page('/login');
       }else{
@@ -16,8 +20,8 @@
     });
 
     page('/remote', function() {
-      if(false && app.device == null) {
-        page('/');
+      if(app.device == null) {
+        page('/login');
       }else{
         app.route = 'remote';
       }
