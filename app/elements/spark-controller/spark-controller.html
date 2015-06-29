@@ -3,7 +3,7 @@
   <template>
 
   <iron-ajax
-    id="access_token_request"
+    id="accessTokenRequest"
     url="https://api.particle.io/oauth/token"
     handle-as="json"
     method="POST">
@@ -11,7 +11,7 @@
 
 
   <iron-ajax
-    id="device_list_request"
+    id="deviceListRequest"
     url="https://api.particle.io/v1/devices"
     handle-as="json"
     method="GET">
@@ -19,7 +19,7 @@
 
 
   <iron-ajax
-    id="function_request"
+    id="functionRequest"
     url=""
     handle-as="json"
     method="POST">
@@ -43,28 +43,27 @@
         },
 
         getAccessToken : function(e){
-          var access_token_request  = this.$.access_token_request;
-          access_token_request.headers = {Authorization : "Basic cGFydGljbGU6cGFydGljbGU="};
-          access_token_request.body =
-          "grant_type=password"
-           + "&username=" + encodeURIComponent(e.username)
-           + "&password=" + encodeURIComponent(e.password);
-          access_token_request.generateRequest();
+          var accessTokenRequest  = this.$.accessTokenRequest;
+          accessTokenRequest.headers = {Authorization : 'Basic cGFydGljbGU6cGFydGljbGU='};
+          accessTokenRequest.body =
+          'grant_type=password' + 
+          '&username=' + encodeURIComponent(e.username) +
+          '&password=' + encodeURIComponent(e.password);
+          accessTokenRequest.generateRequest();
         },
 
         getDevices : function(accessToken){
-          var device_list_request = this.$.device_list_request;
-          device_list_request.params = { "access_token" : encodeURIComponent(accessToken)};
-          device_list_request.generateRequest();
+          var deviceListRequest = this.$.deviceListRequest;
+          deviceListRequest.params = { 'access_token' : encodeURIComponent(accessToken)};
+          deviceListRequest.generateRequest();
         },
 
         executeFunction : function(accessToken, deviceId, args){
-          var function_request = this.$.function_request;
-          function_request.url = "https://api.particle.io/v1/devices/" + deviceId + "/sendIR";
-          function_request.body =
-          "access_token=" + encodeURIComponent(accessToken)
-          + "&args=" + args;
-          function_request.generateRequest();
+          var functionRequest = this.$.functionRequest;
+          functionRequest.url = 'https://api.particle.io/v1/devices/' + deviceId + '/sendIR';
+          functionRequest.body =
+          'access_token=' + encodeURIComponent(accessToken) + '&args=' + args;
+          functionRequest.generateRequest();
         }
 
       });

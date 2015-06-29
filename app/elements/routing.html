@@ -8,7 +8,7 @@
     });
 
     page('/devices', function() {
-      if(app.token == null){
+      if(app.token === null){
         page('/login');
       }else{
         app.route = 'devices';
@@ -20,12 +20,12 @@
     });
 
     page('/remote', function() {
-      if(app.device == null) {
+      if(app.device === null) {
         page('/login');
       }else{
         app.route = 'remote';
       }
-    })
+    });
 
     // add #! before urls
     page({

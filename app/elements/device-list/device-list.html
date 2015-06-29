@@ -18,7 +18,7 @@
       </template>
     </div>
 
-    <spark-controller id="spark_controller"
+    <spark-controller id="sparkController"
       on-response="handleResponse"
       on-error="handleError">
     </spark-controller>
@@ -41,11 +41,10 @@
         },
 
         refreshDevices : function(){
-          this.$.spark_controller.getDevices(this.accessToken);
+          this.$.sparkController.getDevices(this.accessToken);
         },
 
-        handleError : function(e){
-
+        handleError : function(){
         },
 
         handleResponse : function(e){

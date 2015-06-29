@@ -48,10 +48,10 @@
         },
 
         setVisibility : function(){
-          if(this.label == ""){
-            this.$.ripple.toggleClass("hidden", true);
+          if(this.label === ''){
+            this.$.ripple.toggleClass('hidden', true);
           }else{
-            this.$.ripple.toggleClass("hidden", false);
+            this.$.ripple.toggleClass('hidden', false);
           }
         },
 
@@ -59,7 +59,7 @@
           this.$.ripple.downAction({x: e.x, y: e.y});
         },
 
-        upAction: function(e) {
+        upAction: function() {
           this.$.ripple.upAction();
         }
 

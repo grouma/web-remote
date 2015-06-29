@@ -16,20 +16,20 @@
   </style>
   <template>
 
-    <paper-input id="email_input" label="Email" type="email" value="{{email}}"></paper-input>
-    <iron-a11y-keys id="email_enter_handler" keys="enter" on-keys-pressed="loginTap"></iron-a11y-keys>
-    <paper-input id="password_input" label="Password" type="password" value="{{password}}"></paper-input>
-    <iron-a11y-keys id="password_enter_handler" keys="enter" on-keys-pressed="loginTap"></iron-a11y-keys>
+    <paper-input id="emailInput" label="Email" type="email" value="{{email}}"></paper-input>
+    <iron-a11y-keys id="emailEnterHandler" keys="enter" on-keys-pressed="loginTap"></iron-a11y-keys>
+    <paper-input id="passwordInput" label="Password" type="password" value="{{password}}"></paper-input>
+    <iron-a11y-keys id="passwordEnterHandler" keys="enter" on-keys-pressed="loginTap"></iron-a11y-keys>
     <br>
-    <paper-button id="login_button" on-tap="loginTap" raised disabled>Login</paper-button>
-    <paper-spinner id="login_spinner" active></paper-spinner>
+    <paper-button id="loginButton" on-tap="loginTap" raised disabled>Login</paper-button>
+    <paper-spinner id="loginSpinner" active></paper-spinner>
 
-    <spark-controller id="spark_controller"
+    <spark-controller id="sparkController"
       on-response='loginSuccess'
       on-error='loginFailure'>
     </spark-controller>
 
-    <paper-dialog id="error_dialog" modal="true">
+    <paper-dialog id="errorDialog" modal="true">
       <h2>Error</h2>
       <paper-dialog-scrollable>{{errorMessage}}</paper-dialog-scrollable>
       <div class="buttons">
@@ -45,9 +45,9 @@
         is: 'login-helper',
 
         ready: function(){
-          this.$.email_enter_handler.target = this.$.email_input
-          this.$.password_enter_handler.target = this.$.password_input;
-          this.$.login_spinner.toggleAttribute("active", false);
+          this.$.emailEnterHandler.target = this.$.emailInput;
+          this.$.passwordEnterHandler.target = this.$.passwordInput;
+          this.$.loginSpinner.toggleAttribute('active', false);
         },
 
         properties : {
@@ -68,33 +68,34 @@
         },
 
         inputChange: function(){
-          if(this.email != "" && this.password != ""){
-            var loginButton = this.$.login_button;
-            loginButton.toggleAttribute("disabled", false);
-            loginButton.toggleClass("colored", true);
+          var loginButton = this.$.loginButton;
+          if(this.email !== '' && this.password !== ''){
+            loginButton.toggleAttribute('disabled', false);
+            loginButton.toggleClass('colored', true);
           }else{
-            var loginButton = this.$.login_button;
-            loginButton.toggleAttribute("disabled", true);
-            loginButton.toggleClass("colored", false);
+            loginButton.toggleAttribute('disabled', true);
+            loginButton.toggleClass('colored', false);
           }
         },
 
         loginSuccess: function(e){
+          /*jshint camelcase: false */
           app.token = e.detail.response.access_token;
-          this.$.login_spinner.toggleAttribute("active", false);
+          this.$.loginSpinner.toggleAttribute('active', false);
           page(this.transitionPage);
         },
-
+    
         loginFailure: function(e){
+          /*jshint camelcase: false */
           this.errorMessage = e.detail.request.xhr.response.error_description;
-          this.$.login_spinner.toggleAttribute("active",false);
-          this.$.error_dialog.toggle();
+          this.$.loginSpinner.toggleAttribute('active',false);
+          this.$.errorDialog.toggle();
         },
 
         loginTap: function(){
-          if(this.email != "" && this.password != ""){
-            this.$.login_spinner.toggleAttribute("active", true);
-            this.$.spark_controller.getAccessToken(
+          if(this.email !== '' && this.password !== ''){
+            this.$.loginSpinner.toggleAttribute('active', true);
+            this.$.sparkController.getAccessToken(
               {username : this.email, password: this.password},
               this.loginSuccess, this.loginFailure);
           }

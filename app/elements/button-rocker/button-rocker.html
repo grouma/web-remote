@@ -72,9 +72,9 @@
 
         tapHandler : function(e){
           if(e.detail.y > e.srcElement.clientHeight/2){
-            this.fire('keytap', "down");
+            this.fire('keytap', 'down');
           }else{
-            this.fire('keytap', "up");
+            this.fire('keytap', 'up');
           }
         },
 
@@ -82,7 +82,7 @@
           this.$.ripple.downAction({x: e.x, y: e.y});
         },
 
-        upAction: function(e) {
+        upAction: function() {
           this.$.ripple.upAction();
         }
 
