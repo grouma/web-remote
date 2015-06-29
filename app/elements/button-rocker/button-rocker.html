@@ -71,7 +71,7 @@
         },
 
         tapHandler : function(e){
-          if(e.detail.y > e.srcElement.clientHeight/2){
+          if(e.detail.sourceEvent.offsetY > e.srcElement.clientHeight/2){
             this.fire('keytap', 'down');
           }else{
             this.fire('keytap', 'up');
