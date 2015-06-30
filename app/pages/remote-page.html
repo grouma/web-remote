@@ -52,11 +52,21 @@
     button-rocker{
       padding: 16px;
     }
+
+    #backButton {
+      z-index: 10;
+    }
+
   </style>
 
   <template>
+    
+    <paper-button id="backButton" on-tap="backButtonHandler">
+        <iron-icon icon="arrow-back"></iron-icon>
+    </paper-button>
+
     <div id="specialButtonsContainer">
-      <button-rocker
+            <button-rocker
         id="channelRocker"
         up-icon="hardware:keyboard-arrow-up"
         down-icon="hardware:keyboard-arrow-down"
@@ -122,7 +132,12 @@
                 'entry': [{
                     name: 'slide-down-animation',
                     node: this.$.specialButtonsContainer
-                  },{
+                  },
+                  {
+                    name: 'slide-down-animation',
+                    node: this.$.backButton
+                  },
+                  {
                     name: 'scale-up-animation',
                     node: this.$.keyGridContainer
                   }]
@@ -190,6 +205,10 @@
           if(this.currentRoute == 'remote'){
             this.playAnimation('entry');
           }
+        },
+
+        backButtonHandler : function(){
+          page('/devices');
         }
 
         });

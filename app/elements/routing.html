@@ -6,7 +6,7 @@
     page('/', function () {
       page('/devices');
     });
-    
+
     page('/web-remote', function () {
       page('/devices');
     });
@@ -20,12 +20,20 @@
     });
 
     page('/login', function () {
-      app.route = 'login';
+      if(app.token !== null){
+        page('/devices');
+      }else{
+        app.route = 'login';
+      }
     });
 
     page('/remote', function() {
       if(app.device === null) {
-        page('/login');
+        if(app.token === null){
+          page('/login');
+        }else{
+          page('/devices');
+        }
       }else{
         app.route = 'remote';
       }

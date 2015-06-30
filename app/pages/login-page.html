@@ -37,7 +37,7 @@
       <div class="paper-header tall">Web Remote</div>
         <div class="cover">
           <paper-material elevation="1">
-            <login-helper transition-page="/devices"></login-helper>
+            <login-helper id="loginHelper" token="{{token}}"></login-helper>
           </paper-material>
         </div>
       </paper-header-panel>
@@ -47,6 +47,30 @@
     (function() {
       Polymer({
         is: 'login-page',
+
+        properties : {
+          currentRoute : {
+            type: String,
+            observer: 'routeChangeHandler'
+          },
+          token : {
+            type: String,
+            observer: 'tokenLoadHandler',
+            notify: true
+          }
+        },
+
+        tokenLoadHandler : function(){
+          if(this.token != null && this.currentRoute === 'login'){
+            page('/devices');
+          }
+        },
+
+        routeChangeHandler : function(){
+          if (this.currentRoute === 'login'){
+              this.$.loginHelper.clearData();
+          }
+        }
 
         });
       })();

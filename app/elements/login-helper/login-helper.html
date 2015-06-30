@@ -37,6 +37,12 @@
       </div>
     </paper-dialog>
 
+  <iron-localstorage
+    id="tokenStorage"
+    name="tokenStorage"
+    value="{{token}}">
+  </iron-localstorage>
+
   </template>
 
   <script>
@@ -62,8 +68,9 @@
           errorMessage : {
             type: String,
           },
-          transitionPage : {
+          token : {
             type: String,
+            notify: true
           }
         },
 
@@ -80,11 +87,10 @@
 
         loginSuccess: function(e){
           /*jshint camelcase: false */
-          app.token = e.detail.response.access_token;
+          this.token = e.detail.response.access_token;
           this.$.loginSpinner.toggleAttribute('active', false);
-          page(this.transitionPage);
         },
-    
+
         loginFailure: function(e){
           /*jshint camelcase: false */
           this.errorMessage = e.detail.request.xhr.response.error_description;
@@ -99,7 +105,13 @@
               {username : this.email, password: this.password},
               this.loginSuccess, this.loginFailure);
           }
+        },
+
+        clearData : function(){
+          this.email = '';
+          this.password = '';
         }
+
       });
     })();
   </script>
