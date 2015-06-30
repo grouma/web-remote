@@ -6,6 +6,10 @@
     page('/', function () {
       page('/devices');
     });
+    
+    page('/web-remote', function () {
+      page('/devices');
+    });
 
     page('/devices', function() {
       if(app.token === null){
