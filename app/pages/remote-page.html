@@ -55,12 +55,23 @@
 
     #backButton {
       z-index: 10;
+      position: absolute;
+      top: 0;
+      left: 8px;
+      padding: 0px;
+      margin: 0px;
+      min-width: 0;
+    }
+
+    #backButton /deep/ paper-material {
+      padding: 0px;
+      width: 24px;
     }
 
   </style>
 
   <template>
-    
+
     <paper-button id="backButton" on-tap="backButtonHandler">
         <iron-icon icon="arrow-back"></iron-icon>
     </paper-button>
