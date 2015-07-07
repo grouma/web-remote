@@ -10,45 +10,19 @@
         margin: 0px 16px;
         background-color: black;
     }
-
-    .buttonContainer {
-      @apply(--layout-flex);
-      @apply(--layout-vertical);
-    }
-
-    .buttonContainer {
-      padding: 16px;
-      z-index: 20;
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--layout-center-justified);
-    }
-
-  .rippleContainer {
-    position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    iron-icon {
-      fill: black;
-    }
   </style>
   <template>
     <paper-material elevation="1">
-      <div class="buttonContainer">
-        <iron-icon icon="{{upIcon}}"></iron-icon>
-      </div>
+      <button-rocker-key
+        id="upButton"
+        icon="{{upIcon}}"
+        on-keytap="tapHandler">
+      </button-rocker-key>
       <div class="divider"></div>
-      <div class="buttonContainer">
-        <iron-icon icon="{{downIcon}}"></iron-icon>
-      </div>
-      <div class="rippleContainer">
-        <paper-ripple id="ripple" class="ripple" style="pointer-events: none;">
-        </paper-ripple>
-      </div>
+      <button-rocker-key
+        id="downButton"
+        icon="{{downIcon}}"
+        on-keytap="tapHandler"></button-rocker-key>
     </paper-material>
   </template>
 
@@ -66,24 +40,13 @@
           }
         },
 
-        listeners : {
-          'tap' : 'tapHandler'
-        },
-
         tapHandler : function(e){
-          if(e.detail.sourceEvent.offsetY > e.srcElement.clientHeight/2){
+          e.stopPropagation();
+          if(e.srcElement.id === 'downButton'){
             this.fire('keytap', 'down');
           }else{
             this.fire('keytap', 'up');
           }
-        },
-
-        downAction: function(e) {
-          this.$.ripple.downAction({x: e.x, y: e.y});
-        },
-
-        upAction: function() {
-          this.$.ripple.upAction();
         }
 
         });
