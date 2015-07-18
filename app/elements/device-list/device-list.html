@@ -4,12 +4,32 @@
     paper-item {
       cursor: pointer;
     }
+
+    .icon {
+      display: inline-block;
+      width: 20px;
+      border-radius: 50%;
+      height: 20px;
+      overflow: hidden;
+      margin-right: 10px;
+      background: #ccc;
+    }
+
+    .not-connected {
+      background-color: var(--paper-red-300);
+    }
+
+    .connected {
+      background-color: var(--paper-green-300);
+    }
+
    </style>
 
   <template>
     <div class="list">
       <template is="dom-repeat" items="{{devices}}">
         <paper-item on-tap="selectDevice">
+          <div class$="{{computeStyleClass(item)}}"></div>
           <paper-item-body two-line class="layout vertical">
             <div>{{item.name}}</div>
             <div secondary>{{item.id}}</div>
@@ -55,6 +75,10 @@
         selectDevice : function(e){
           app.device = e.model.__data__.item;
           page('/remote');
+        },
+
+        computeStyleClass : function(item){
+          return item.connected ? 'icon connected' : 'icon not-connected'
         }
 
       });
