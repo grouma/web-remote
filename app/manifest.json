@@ -1,6 +1,6 @@
 {
-  "name": "Polymer Starter Kit",
-  "short_name": "Polymer Starter Kit",
+  "name": "Web Remote",
+  "short_name": "WR",
   "icons": [{
     "src": "images/touch/remote_128.jpg",
     "sizes": "128x128"
