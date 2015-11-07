@@ -141,16 +141,18 @@
             value: function() {
               return {
                 'entry': [{
-                    name: 'slide-down-animation',
+                    name: 'scale-up-animation',
                     node: this.$.specialButtonsContainer
                   },
                   {
                     name: 'slide-down-animation',
-                    node: this.$.backButton
+                    node: this.$.backButton,
+                    timing: {delay: 350}
                   },
                   {
-                    name: 'scale-up-animation',
-                    node: this.$.keyGridContainer
+                    name: 'fade-in-animation',
+                    node: this.$.keyGridContainer,
+                    timing: {delay: 350}
                   }]
               };
             }
