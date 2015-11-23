@@ -2,13 +2,13 @@
   "name": "Web Remote",
   "short_name": "WR",
   "icons": [{
-    "src": "images/touch/remote_128.jpg",
+    "src": "images/touch/remote_128.png",
     "sizes": "128x128"
   }, {
-    "src": "images/touch/remote_170.jpg",
+    "src": "images/touch/remote_170.png",
     "sizes": "170x170"
   }, {
-    "src": "images/touch/remote_300.jpg",
+    "src": "images/touch/remote_300.png",
     "sizes": "300x300"
   }],
   "start_url": "/web-remote",
