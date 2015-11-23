@@ -5,15 +5,14 @@
     "src": "images/touch/remote_128.jpg",
     "sizes": "128x128"
   }, {
-    "src": "images/touch/apple-touch-icon.jpg",
-    "sizes": "152x152"
+    "src": "images/touch/remote_170.jpg",
+    "sizes": "170x170"
   }, {
-    "src": "images/touch/remote_144.jpg",
-    "sizes": "144x144"
-  }, {
-    "src": "images/touch/remote_152.jpg",
-    "sizes": "192x192"
+    "src": "images/touch/remote_300.jpg",
+    "sizes": "300x300"
   }],
   "start_url": "/web-remote",
-  "display": "standalone"
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#349CD6"
 }

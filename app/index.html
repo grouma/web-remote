@@ -11,27 +11,27 @@
   <!-- Place favicon.ico and apple-touch-icon.jpg in the root directory -->
 
   <!-- Chrome for Android theme color -->
-  <meta name="theme-color" content="#080C19">
+  <meta name="theme-color" content="#349CD6">
 
   <!-- Web Application Manifest -->
   <link rel="manifest" href="manifest.json">
 
   <!-- Tile color for Win8 -->
-  <meta name="msapplication-TileColor" content="#080C19">
+  <meta name="msapplication-TileColor" content="#349CD6">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Web Remote">
-  <link rel="icon" sizes="152x152" href="images/touch/remote_152.jpg">
+  <link rel="icon" sizes="300x300" href="images/touch/remote_300.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Web Remote">
-  <link rel="apple-touch-icon" href="images/touch/remote_128.jpg">
+  <link rel="apple-touch-icon" href="images/touch/remote_128.png">
 
   <!-- Tile icon for Win8 (144x144) -->
-  <meta name="msapplication-TileImage" content="images/touch/remote_144.jpg">
+  <meta name="msapplication-TileImage" content="images/touch/remote_300.png">
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
@@ -83,7 +83,7 @@
                           clients-claim
                           skip-waiting
                           on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="networkFirst"
+      <platinum-sw-cache default-cache-strategy="cacheFirst"
                          precache-file="precache.json">
       </platinum-sw-cache>
     </platinum-sw-register>

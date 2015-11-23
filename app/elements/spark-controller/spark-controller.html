@@ -6,7 +6,9 @@
     id="accessTokenRequest"
     url="https://api.particle.io/oauth/token"
     handle-as="json"
-    method="POST">
+    method="POST"
+    on-response="onResponse"
+    on-error="onError">
   </iron-ajax>
 
 
@@ -14,7 +16,9 @@
     id="deviceListRequest"
     url="https://api.particle.io/v1/devices"
     handle-as="json"
-    method="GET">
+    method="GET"
+    on-response="onResponse"
+    on-error="onError">
   </iron-ajax>
 
 
@@ -22,7 +26,9 @@
     id="functionRequest"
     url=""
     handle-as="json"
-    method="POST">
+    method="POST"
+    on-response="onResponse"
+    on-error="onError">
   </iron-ajax>
 
   </template>
@@ -46,7 +52,7 @@
           var accessTokenRequest  = this.$.accessTokenRequest;
           accessTokenRequest.headers = {Authorization : 'Basic cGFydGljbGU6cGFydGljbGU='};
           accessTokenRequest.body =
-          'grant_type=password' + 
+          'grant_type=password' +
           '&username=' + encodeURIComponent(e.username) +
           '&password=' + encodeURIComponent(e.password);
           accessTokenRequest.generateRequest();
@@ -64,6 +70,14 @@
           functionRequest.body =
           'access_token=' + encodeURIComponent(accessToken) + '&args=' + args;
           functionRequest.generateRequest();
+        },
+
+        onResponse : function(e){
+          this.fire('response', e.detail);
+        },
+
+        onError : function(e){
+          this.fire('error', e.detail);
         }
 
       });
